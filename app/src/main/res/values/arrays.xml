@@ -1,12 +1,30 @@
 <resources>
     <!-- Reply Preference -->
     <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+        <item>Reply to everybody</item>
+        <item>Reply to contacts</item>
+        <item>Reply to favourite contacts</item>
     </string-array>
 
     <string-array name="reply_values">
-        <item>reply</item>
         <item>reply_all</item>
+        <item>reply_contacts</item>
+        <item>reply_starred_contacts</item>
+    </string-array>
+    <string-array name="category_values">
+        <item>Programming</item>
+        <item>Misc</item>
+        <item>Dark</item>
+        <item>Pun</item>
+        <item>Spooky</item>
+        <item>Christmas</item>
+    </string-array>
+    <string-array name="category_entries" >
+        <item>Programming</item>
+        <item>Misc</item>
+        <item>Dark</item>
+        <item>Pun</item>
+        <item>Spooky</item>
+        <item>Christmas</item>
     </string-array>
 </resources>

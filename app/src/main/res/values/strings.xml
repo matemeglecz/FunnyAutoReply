@@ -8,7 +8,7 @@
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="reply_title">Reply action</string>
 
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
@@ -18,4 +18,10 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="incomingCallPrefs">incoming_call_br_prefs</string>
     <string name="previousStateKey">previous_state</string>
+    <string name="action_settings">settings</string>
+    <string name="joke_header">Jokes</string>
+    <string name="category_title">Joke Categories</string>
+    <string name="any_category_title">Specific Categories</string>
+    <string name="any_category_summary_off">The joke is chosen from a random category.</string>
+    <string name="any_category_summary_on">The jokes are chosen from a list of specific categories.</string>
 </resources>

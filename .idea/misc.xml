@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/drawable/baseline_settings_20.xml" value="0.24427083333333333" />
         <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/layout/activity_main.xml" value="0.28072916666666664" />
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/layout/settings_activity.xml" value="0.15" />
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/menu/toolbar_menu.xml" value="0.22760416666666666" />
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/menu/toolbar_menu_main.xml" value="0.3182291666666667" />
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/xml/root_preferences.xml" value="0.1945288753799392" />
       </map>
     </option>
   </component>
