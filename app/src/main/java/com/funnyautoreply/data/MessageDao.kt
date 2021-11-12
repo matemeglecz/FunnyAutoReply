@@ -10,6 +10,9 @@ interface MessageDao {
     @Insert
     fun insert(shoppingItems: Message): Long
 
+    @Update
+    fun update(shoppingItem: Message)
+
     /*@Delete
     fun deleteItem(shoppingItem: ShoppingItem)*/
 }

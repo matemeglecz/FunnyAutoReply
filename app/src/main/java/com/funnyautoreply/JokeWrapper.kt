@@ -4,7 +4,7 @@ import com.funnyautoreply.model.JokeData
 
 class JokeWrapper (private val jokeData: JokeData?) {
 
-    public fun getJoke() : String?{
+    fun getJoke() : String? {
         if(jokeData==null || jokeData.error)
             return null
 
@@ -14,5 +14,9 @@ class JokeWrapper (private val jokeData: JokeData?) {
             return jokeData.setup + "\n" + jokeData.delivery;
 
         return null
+    }
+
+    fun getCategory() : String? {
+        return jokeData?.category
     }
 }

@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Message::class], version = 1)
-abstract class SentMessagesDatabase : RoomDatabase() {
-    abstract fun MessageDao(): MessageDao
+@Database(entities = [Message::class], version = 2)
+abstract class SentMessagesDatabase : RoomDatabase(){
+    abstract fun messageDao(): MessageDao
 
     companion object {
         fun getDatabase(applicationContext: Context): SentMessagesDatabase {
@@ -15,7 +15,9 @@ abstract class SentMessagesDatabase : RoomDatabase() {
                 applicationContext,
                 SentMessagesDatabase::class.java,
                 "sent-messages"
-            ).build();
+            ).fallbackToDestructiveMigration()
+                .build();
         }
     }
+
 }

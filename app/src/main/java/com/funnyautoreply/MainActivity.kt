@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -15,23 +16,41 @@ import android.view.SubMenu
 import android.widget.ToggleButton
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.funnyautoreply.adapter.MessageAdapter
+import com.funnyautoreply.data.Message
+import com.funnyautoreply.data.SentMessagesDatabase
 import com.funnyautoreply.databinding.ActivityMainBinding
 import com.funnyautoreply.databinding.SettingsActivityBinding
+import kotlin.concurrent.thread
+import androidx.recyclerview.widget.DividerItemDecoration
 
 
-class MainActivity : AppCompatActivity() {
+
+
+
+class MainActivity :  AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var bindingSettings: SettingsActivityBinding
+    //private lateinit var bindingSettings: SettingsActivityBinding
+    private lateinit var database: SentMessagesDatabase
+    private lateinit var adapter: MessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
-        bindingSettings = SettingsActivityBinding.inflate(layoutInflater)
+        //bindingSettings = SettingsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        database = SentMessagesDatabase.getDatabase(applicationContext)
         //binding.toolbar.setBackgroundColor(Color.parseColor("#80000000"));
         requestNeededPermissions()
+
+        /*binding.fab.setOnClickListener {
+            //TODO
+        }*/
+
+        initRecyclerView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,9 +79,42 @@ class MainActivity : AppCompatActivity() {
                 startActivity(settingsIntent)
                 true
             }
+            R.id.action_refresh -> {
+                loadItemsInBackground()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun initRecyclerView() {
+        adapter = MessageAdapter()
+        binding.rvMain.layoutManager = LinearLayoutManager(this)
+        binding.rvMain.adapter = adapter
+        val dividerItemDecoration = DividerItemDecoration(
+            binding.rvMain.getContext(),
+            (binding.rvMain.layoutManager as LinearLayoutManager).getOrientation()
+        )
+        binding.rvMain.addItemDecoration(dividerItemDecoration)
+
+        loadItemsInBackground()
+    }
+
+    private fun loadItemsInBackground() {
+        thread {
+            val items = database.messageDao().getAll()
+            runOnUiThread {
+                adapter.update(items)
+            }
+        }
+    }
+
+    /*override fun onItemChanged(item: Message) {
+        thread {
+            database.messageDao().update(item)
+            Log.d("MainActivity", "Message update was successful")
+        }
+    }*/
 
     private fun requestNeededPermissions(){
         if (ContextCompat.checkSelfPermission(this,

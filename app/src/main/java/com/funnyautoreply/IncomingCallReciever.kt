@@ -10,11 +10,16 @@ import android.telephony.TelephonyManager
 import android.util.Log
 import android.telephony.PhoneStateListener
 import androidx.preference.PreferenceManager
+import com.funnyautoreply.adapter.MessageAdapter
+import com.funnyautoreply.data.Message
+import com.funnyautoreply.data.SentMessagesDatabase
 import com.funnyautoreply.model.JokeData
 import com.funnyautoreply.network.NetworkManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.concurrent.thread
 
 class IncomingCallReceiver : BroadcastReceiver() {
     companion object {
@@ -22,11 +27,17 @@ class IncomingCallReceiver : BroadcastReceiver() {
         private var incomingNumber: String? = null
     }
 
+
     private lateinit var sharedPref : SharedPreferences
+    private lateinit var database: SentMessagesDatabase
+    private lateinit var adapter: MessageAdapter
 
     override fun onReceive(context: Context, intent: Intent) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         Log.d("BR", "BR started")
+
+        database = SentMessagesDatabase.getDatabase(context)
+        adapter = MessageAdapter()
 
         if (intent.action.equals("android.intent.action.PHONE_STATE") && sharedPref.getBoolean("reply_on_off", false)) {
             phoneStateListener(context)
@@ -57,8 +68,19 @@ class IncomingCallReceiver : BroadcastReceiver() {
             ) {
                 Log.d(TAG, "onResponse: " + response.code())
                 if (response.isSuccessful) {
-                    //jokeWrapper=JokeWrapper(response.body());
-                    SmsManager.sendSms(context, incomingNumber, JokeWrapper(response.body()))
+                    val jokeWrapper=JokeWrapper(response.body())
+                    val number= incomingNumber
+                    if(SmsManager.sendSms(context, incomingNumber, jokeWrapper)
+                        && jokeWrapper.getJoke() != null
+                        && number !=null){
+                        val msg=Message(
+                            phoneNumber = number,
+                            joke = jokeWrapper.getJoke().toString(),
+                            category = jokeWrapper.getCategory() ?: "",
+                            date = Message.fromCalendar(Calendar.getInstance()) ?: 0
+                        )
+                        addToDatabase(msg)
+                    }
                 } else {
                     Log.d("ERROR_IN_MSG", "Error: " + response.message())
                 }
@@ -72,6 +94,15 @@ class IncomingCallReceiver : BroadcastReceiver() {
                 Log.d("ERROR_IN_MSG", "Network request error occured, check LOG")
             }
         })
+    }
+
+    private fun addToDatabase(newItem: Message){
+        thread {
+            val insertId = database.messageDao().insert(newItem)
+            newItem.id = insertId
+            adapter.addItem(newItem)
+            adapter.notifyDataSetChanged()
+        }
     }
 
 }

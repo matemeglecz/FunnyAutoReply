@@ -20,21 +20,25 @@ import android.provider.ContactsContract
 object SmsManager {
     private val smsManager : SmsManager = SmsManager.getDefault() //android 31-re lett deprecated
 
-    fun sendSms(context: Context, incomingNumber: String?, jokeWrapper: JokeWrapper?) {
+    fun sendSms(context: Context, incomingNumber: String?, jokeWrapper: JokeWrapper?) : Boolean{
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
-        val replyCategory = sharedPref.getString("reply_category", null) ?: return
+        val replyCategory = sharedPref.getString("reply_category", null) ?: return false
 
         if(replyCategory == "reply_contacts" && !numberInContacts(context, incomingNumber)
             || replyCategory == "reply_starred_contacts" && !numberInStarredContacts(context, incomingNumber))
-            return
+            return false
 
 
         Log.d("SMS_INFO", "SMS to $incomingNumber joke: ${jokeWrapper?.getJoke()}")
 
         val joke=jokeWrapper?.getJoke()
 
-        if(incomingNumber != null && joke != null)
+        if(incomingNumber != null && joke != null) {
             smsManager.sendTextMessage(incomingNumber, null, joke, null, null)
+            return true
+        }
+
+        return false
     }
 
 
