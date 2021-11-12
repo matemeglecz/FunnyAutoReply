@@ -12,16 +12,22 @@ import androidx.core.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
+import android.widget.ToggleButton
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import com.funnyautoreply.databinding.ActivityMainBinding
+import com.funnyautoreply.databinding.SettingsActivityBinding
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var bindingSettings: SettingsActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
+        bindingSettings = SettingsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         //binding.toolbar.setBackgroundColor(Color.parseColor("#80000000"));
@@ -80,19 +86,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CALL_LOG, Manifest.permission.SEND_SMS), 1)
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+                Toast.makeText(this, "I need it for contacts", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CALL_LOG, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS), 1)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         when (requestCode) {
             1  -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "READ_PHONE_STATE perm granted", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "READ_PHONE_STATE perm NOT granted", Toast.LENGTH_SHORT).show()
-                    // disable on/off switch
+                    with (sharedPref.edit()) {
+                        putBoolean("reply_on_off", false)
+                        apply()
+                    }
                 }
                 if (grantResults.isNotEmpty() && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "READ_CALL_LOG perm granted", Toast.LENGTH_SHORT).show()
@@ -104,6 +120,12 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "SEND_SMS perm granted", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "SEND_SMS perm NOT granted", Toast.LENGTH_SHORT).show()
+                    // disable on/off switch
+                }
+                if (grantResults.isNotEmpty() && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "READ_CONTACTS perm granted", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "READ_CONTACTS perm NOT granted", Toast.LENGTH_SHORT).show()
                     // disable on/off switch
                 }
             }

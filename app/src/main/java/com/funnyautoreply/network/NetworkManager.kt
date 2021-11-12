@@ -1,5 +1,8 @@
 package com.funnyautoreply.network
 
+import android.content.Context
+import android.util.Log
+import androidx.preference.PreferenceManager
 import com.funnyautoreply.model.JokeData
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -12,7 +15,6 @@ object NetworkManager {
 
     private const val SERVICE_URL = "https://v2.jokeapi.dev/"
 
-
     init {
         retrofit = Retrofit.Builder()
             .baseUrl(SERVICE_URL)
@@ -22,11 +24,26 @@ object NetworkManager {
         jokeApi = retrofit.create(JokeApi::class.java)
     }
 
-    fun getJoke(): Call<JokeData?>? {
-        //ha nincs kategória
-        return jokeApi.getJokeAny()
+    fun getJoke(context: Context): Call<JokeData?>? {
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
+        val customCategory = sharedPref.getBoolean("any_category", false)
 
+        //ha nincs kategória
+        if(!customCategory)
+            return jokeApi.getJokeAny()
         //ha vannak kategóriák
         //összefűzni stringre és getJokeCustom hívás
+        else{
+            val categories: Set<String>? = sharedPref.getStringSet("categories", null)
+            val categoriesString : String
+            if (categories != null) {
+                for(s : String in categories){
+                    categoriesString = categories.joinToString(",")
+                    Log.d("CAT_STR", categoriesString)
+                    return jokeApi.getJokeCustom(categoriesString)
+                }
+            }
+        }
+        return null
     }
 }

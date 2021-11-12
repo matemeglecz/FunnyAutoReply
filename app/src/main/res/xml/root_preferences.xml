@@ -1,11 +1,15 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/messages_header">
+        <SwitchPreferenceCompat
+            app:key="@string/reply_on_off_key"
+            app:title="@string/on_off_title" />
+
         <ListPreference
             app:defaultValue="reply_contacts"
             app:entries="@array/reply_entries"
             app:entryValues="@array/reply_values"
-            app:key="reply"
+            app:key="@string/reply_key"
             app:title="@string/reply_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -13,30 +17,18 @@
 
     <PreferenceCategory app:title="@string/joke_header">
         <SwitchPreferenceCompat
-            app:key="any_category"
+            app:key="@string/any_category_key"
             app:title="@string/any_category_title"
             app:summaryOff="@string/any_category_summary_off"
-            app:summaryOn="@string/any_category_summary_on"
-            />
+            app:summaryOn="@string/any_category_summary_on" />
 
         <MultiSelectListPreference
             app:dependency="any_category"
             app:entries="@array/category_entries"
             app:entryValues="@array/category_values"
-            app:key="category"
+            app:key="@string/categories_key"
             app:title="@string/category_title"
             app:useSimpleSummaryProvider="true" />
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
 
     </PreferenceCategory>
 

@@ -24,4 +24,9 @@
     <string name="any_category_title">Specific Categories</string>
     <string name="any_category_summary_off">The joke is chosen from a random category.</string>
     <string name="any_category_summary_on">The jokes are chosen from a list of specific categories.</string>
+    <string name="on_off_title">Turn ON/OFF</string>
+    <string name="reply_on_off_key">reply_on_off</string>
+    <string name="reply_key">reply_category</string>
+    <string name="any_category_key">any_category</string>
+    <string name="categories_key">categories</string>
 </resources>
