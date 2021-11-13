@@ -17,7 +17,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >
         <receiver
-            android:name=".IncomingCallReceiver"
+            android:name=".smssend.IncomingCallReceiver"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE"/>
@@ -25,12 +25,12 @@
         </receiver>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".views.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
             />
         <activity
-            android:name=".MainActivity"
+            android:name=".views.HistoryViewActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
+import java.text.DateFormat
 import java.util.*
 
 @Entity(tableName = "message")
@@ -25,6 +26,18 @@ data class Message(
         @TypeConverter
         fun fromCalendar(c: Calendar?): Long? {
             return c?.time?.time
+        }
+
+        @TypeConverter
+        fun toFormattedDate(l: Long?): String? {
+            val sdf = DateFormat.getDateTimeInstance()
+            var strdate : String? = null
+            val date=toCalendar(l)
+
+            if (date != null) {
+                strdate = sdf.format(date.time)
+            }
+            return strdate
         }
     }
 }

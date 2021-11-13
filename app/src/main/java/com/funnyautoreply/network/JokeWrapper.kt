@@ -1,4 +1,4 @@
-package com.funnyautoreply
+package com.funnyautoreply.network
 
 import com.funnyautoreply.model.JokeData
 

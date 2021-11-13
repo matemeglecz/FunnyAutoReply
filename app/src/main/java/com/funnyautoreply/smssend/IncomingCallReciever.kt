@@ -1,4 +1,4 @@
-package com.funnyautoreply
+package com.funnyautoreply.smssend
 
 import android.content.BroadcastReceiver
 import android.content.ContentValues.TAG
@@ -10,7 +10,7 @@ import android.telephony.TelephonyManager
 import android.util.Log
 import android.telephony.PhoneStateListener
 import androidx.preference.PreferenceManager
-import com.funnyautoreply.adapter.MessageAdapter
+import com.funnyautoreply.network.JokeWrapper
 import com.funnyautoreply.data.Message
 import com.funnyautoreply.data.SentMessagesDatabase
 import com.funnyautoreply.model.JokeData
@@ -30,14 +30,14 @@ class IncomingCallReceiver : BroadcastReceiver() {
 
     private lateinit var sharedPref : SharedPreferences
     private lateinit var database: SentMessagesDatabase
-    private lateinit var adapter: MessageAdapter
+    //private lateinit var adapter: MessageAdapter
 
     override fun onReceive(context: Context, intent: Intent) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         Log.d("BR", "BR started")
 
         database = SentMessagesDatabase.getDatabase(context)
-        adapter = MessageAdapter()
+        //adapter = MessageAdapter(null)
 
         if (intent.action.equals("android.intent.action.PHONE_STATE") && sharedPref.getBoolean("reply_on_off", false)) {
             phoneStateListener(context)
@@ -68,7 +68,7 @@ class IncomingCallReceiver : BroadcastReceiver() {
             ) {
                 Log.d(TAG, "onResponse: " + response.code())
                 if (response.isSuccessful) {
-                    val jokeWrapper=JokeWrapper(response.body())
+                    val jokeWrapper= JokeWrapper(response.body())
                     val number= incomingNumber
                     if(SmsManager.sendSms(context, incomingNumber, jokeWrapper)
                         && jokeWrapper.getJoke() != null
@@ -100,8 +100,7 @@ class IncomingCallReceiver : BroadcastReceiver() {
         thread {
             val insertId = database.messageDao().insert(newItem)
             newItem.id = insertId
-            adapter.addItem(newItem)
-            adapter.notifyDataSetChanged()
+            //adapter.addItem(newItem)
         }
     }
 

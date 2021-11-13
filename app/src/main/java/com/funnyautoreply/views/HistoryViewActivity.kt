@@ -1,60 +1,46 @@
-package com.funnyautoreply
+package com.funnyautoreply.views
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
-import android.widget.ToggleButton
 import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreferenceCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.funnyautoreply.adapter.MessageAdapter
 import com.funnyautoreply.data.Message
 import com.funnyautoreply.data.SentMessagesDatabase
 import com.funnyautoreply.databinding.ActivityMainBinding
-import com.funnyautoreply.databinding.SettingsActivityBinding
 import kotlin.concurrent.thread
 import androidx.recyclerview.widget.DividerItemDecoration
+import android.widget.*
+import com.funnyautoreply.R
 
 
-
-
-
-class MainActivity :  AppCompatActivity() {
+class HistoryViewActivity :  AppCompatActivity(), MessageAdapter.MessageSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
-    //private lateinit var bindingSettings: SettingsActivityBinding
     private lateinit var database: SentMessagesDatabase
     private lateinit var adapter: MessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
-        //bindingSettings = SettingsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         database = SentMessagesDatabase.getDatabase(applicationContext)
-        //binding.toolbar.setBackgroundColor(Color.parseColor("#80000000"));
         requestNeededPermissions()
-
-        /*binding.fab.setOnClickListener {
-            //TODO
-        }*/
 
         initRecyclerView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         val toolbarMenu: Menu = binding.toolbar.menu
         menuInflater.inflate(R.menu.toolbar_menu_main, toolbarMenu)
         for (i in 0 until toolbarMenu.size()) {
@@ -88,7 +74,7 @@ class MainActivity :  AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        adapter = MessageAdapter()
+        adapter = MessageAdapter(this)
         binding.rvMain.layoutManager = LinearLayoutManager(this)
         binding.rvMain.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(
@@ -102,19 +88,13 @@ class MainActivity :  AppCompatActivity() {
 
     private fun loadItemsInBackground() {
         thread {
-            val items = database.messageDao().getAll()
+            var items = database.messageDao().getAll()
             runOnUiThread {
+                items=items.sortedWith( compareBy { it.date }).reversed()
                 adapter.update(items)
             }
         }
     }
-
-    /*override fun onItemChanged(item: Message) {
-        thread {
-            database.messageDao().update(item)
-            Log.d("MainActivity", "Message update was successful")
-        }
-    }*/
 
     private fun requestNeededPermissions(){
         if (ContextCompat.checkSelfPermission(this,
@@ -183,6 +163,10 @@ class MainActivity :  AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onItemSelected(item: Message?) {
+        ShowJokeDialogFragment(item).show(supportFragmentManager, ShowJokeDialogFragment::class.java.simpleName)
     }
 
 

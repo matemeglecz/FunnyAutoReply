@@ -1,46 +1,52 @@
 package com.funnyautoreply.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.funnyautoreply.R
 import com.funnyautoreply.data.Message
 import com.funnyautoreply.databinding.ItemMessageBinding
 import java.text.DateFormat
 
-class MessageAdapter() :
+class MessageAdapter(private val listener: MessageSelectedListener) :
     RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
     private val items = mutableListOf<Message>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MessageViewHolder(
-        ItemMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : MessageViewHolder{
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message, parent, false)
+        return MessageViewHolder(view)
+    }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val message = items[position]
-
-        val sdf = DateFormat.getDateTimeInstance()
-        var strdate = ""
-        val date=Message.toCalendar(message.date)
-
-        if (date != null) {
-            strdate = sdf.format(date.time)
-        }
-
-        holder.binding.tvPhoneNumber.text = message.phoneNumber
-        holder.binding.tvDate.text = strdate
+        holder.bind(message)
     }
 
     override fun getItemCount(): Int = items.size
 
-    interface MessageClickListener {
-        fun onItemChanged(item: Message)
+    interface MessageSelectedListener {
+        fun onItemSelected(item: Message?)
     }
 
-    inner class MessageViewHolder(val binding: ItemMessageBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MessageViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var binding = ItemMessageBinding.bind(itemView)
+        var item: Message? = null
+
+        init {
+            binding.root.setOnClickListener { listener.onItemSelected(item) }
+        }
+
+        fun bind(newMessage: Message?) {
+            item=newMessage
+            binding.tvPhoneNumber.text = item?.phoneNumber
+            binding.tvDate.text =  Message.toFormattedDate(item?.date)
+        }
+    }
 
     fun addItem(item: Message) {
-        items.add(item)
-        notifyItemInserted(items.size - 1)
+        items.add(0, item)
+        notifyItemInserted(0)
     }
 
     fun update(shoppingItems: List<Message>) {

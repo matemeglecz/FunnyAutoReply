@@ -1,6 +1,5 @@
-package com.funnyautoreply
+package com.funnyautoreply.smssend
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.telephony.SmsManager
 import android.util.Log
@@ -9,12 +8,9 @@ import androidx.preference.PreferenceManager
 import android.provider.ContactsContract.PhoneLookup
 
 import android.net.Uri
-import android.database.Cursor
 
-import android.provider.MediaStore
-
-import android.content.ContentResolver
 import android.provider.ContactsContract
+import com.funnyautoreply.network.JokeWrapper
 
 
 object SmsManager {
@@ -25,7 +21,8 @@ object SmsManager {
         val replyCategory = sharedPref.getString("reply_category", null) ?: return false
 
         if(replyCategory == "reply_contacts" && !numberInContacts(context, incomingNumber)
-            || replyCategory == "reply_starred_contacts" && !numberInStarredContacts(context, incomingNumber))
+            || replyCategory == "reply_starred_contacts" && !numberInStarredContacts(context, incomingNumber)
+        )
             return false
 
 

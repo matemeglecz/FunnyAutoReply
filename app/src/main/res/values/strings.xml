@@ -30,4 +30,6 @@
     <string name="any_category_key">any_category</string>
     <string name="categories_key">categories</string>
     <string name="action_refresh">Refresh</string>
+    <string name="sentJoke">Sent Joke</string>
+    <string name="ok">OK</string>
 </resources>

@@ -1,13 +1,11 @@
-package com.funnyautoreply
+package com.funnyautoreply.views
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
-import com.funnyautoreply.databinding.ActivityMainBinding
 import com.funnyautoreply.databinding.SettingsActivityBinding
 import android.view.MenuItem
-
-
+import com.funnyautoreply.R
 
 
 class SettingsActivity : AppCompatActivity() {
