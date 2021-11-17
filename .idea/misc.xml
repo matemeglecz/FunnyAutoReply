@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2907692307692308" />
         <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/drawable/baseline_settings_20.xml" value="0.24427083333333333" />
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/drawable/baseline_settings_24.xml" value="0.2907692307692308" />
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2907692307692308" />
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/drawable/outline_refresh_24.xml" value="0.2907692307692308" />
         <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/layout/activity_main.xml" value="0.28072916666666664" />
+        <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/layout/dialog_show_joke.xml" value="0.29891304347826086" />
         <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/layout/item_message.xml" value="0.27510917030567683" />
         <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/layout/joke_popup_window.xml" value="0.4" />
         <entry key="..\:/projects/android/FunnyAutoReply/app/src/main/res/layout/settings_activity.xml" value="0.15" />

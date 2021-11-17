@@ -32,4 +32,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="sentJoke">Sent Joke</string>
     <string name="ok">OK</string>
+    <string name="phone_number_label">Phone number:</string>
+    <string name="date_label">Date:</string>
+    <string name="category_label">Category:</string>
 </resources>

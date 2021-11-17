@@ -78,8 +78,8 @@ class HistoryViewActivity :  AppCompatActivity(), MessageAdapter.MessageSelected
         binding.rvMain.layoutManager = LinearLayoutManager(this)
         binding.rvMain.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(
-            binding.rvMain.getContext(),
-            (binding.rvMain.layoutManager as LinearLayoutManager).getOrientation()
+            binding.rvMain.context,
+            (binding.rvMain.layoutManager as LinearLayoutManager).orientation
         )
         binding.rvMain.addItemDecoration(dividerItemDecoration)
 

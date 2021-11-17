@@ -4,14 +4,10 @@ import android.content.Context
 import android.telephony.SmsManager
 import android.util.Log
 import androidx.preference.PreferenceManager
-
 import android.provider.ContactsContract.PhoneLookup
-
 import android.net.Uri
-
 import android.provider.ContactsContract
 import com.funnyautoreply.network.JokeWrapper
-
 
 object SmsManager {
     private val smsManager : SmsManager = SmsManager.getDefault() //android 31-re lett deprecated
@@ -25,7 +21,6 @@ object SmsManager {
         )
             return false
 
-
         Log.d("SMS_INFO", "SMS to $incomingNumber joke: ${jokeWrapper?.getJoke()}")
 
         val joke=jokeWrapper?.getJoke()
@@ -38,7 +33,6 @@ object SmsManager {
         return false
     }
 
-
     private fun numberInContacts(context: Context, number: String?) : Boolean{
         val lookupUri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number))
         val mPhoneNumberProjection = arrayOf(PhoneLookup._ID, PhoneLookup.NUMBER)
@@ -50,7 +44,6 @@ object SmsManager {
         }
         return false
     }
-
 
     private fun numberInStarredContacts(context: Context, number: String?) : Boolean{
         val lookupUri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number))
@@ -71,9 +64,7 @@ object SmsManager {
                     cursor.moveToNext();
                 }*/
             }
-
         }
-
         return false
     }
 

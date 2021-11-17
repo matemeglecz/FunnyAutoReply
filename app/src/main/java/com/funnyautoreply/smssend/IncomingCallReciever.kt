@@ -27,17 +27,14 @@ class IncomingCallReceiver : BroadcastReceiver() {
         private var incomingNumber: String? = null
     }
 
-
     private lateinit var sharedPref : SharedPreferences
     private lateinit var database: SentMessagesDatabase
-    //private lateinit var adapter: MessageAdapter
 
     override fun onReceive(context: Context, intent: Intent) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         Log.d("BR", "BR started")
 
         database = SentMessagesDatabase.getDatabase(context)
-        //adapter = MessageAdapter(null)
 
         if (intent.action.equals("android.intent.action.PHONE_STATE") && sharedPref.getBoolean("reply_on_off", false)) {
             phoneStateListener(context)
@@ -49,10 +46,12 @@ class IncomingCallReceiver : BroadcastReceiver() {
         telephony.listen(object : PhoneStateListener() {
             override fun onCallStateChanged(state: Int, phoneNumber: String) {
                 super.onCallStateChanged(state, phoneNumber)
-                if(state == TelephonyManager.CALL_STATE_RINGING)
+                if(state == TelephonyManager.CALL_STATE_RINGING) {
                     incomingNumber = phoneNumber
+                    if(phoneNumber == null) Log.d("NULL_NUM", "nullllllllll")
+                }
 
-                if(previousState == TelephonyManager.CALL_STATE_RINGING && state == TelephonyManager.CALL_STATE_IDLE)
+                if(previousState == TelephonyManager.CALL_STATE_RINGING && state == TelephonyManager.CALL_STATE_IDLE && incomingNumber != null)
                     sendJoke(context)
 
                 previousState=state
@@ -100,7 +99,6 @@ class IncomingCallReceiver : BroadcastReceiver() {
         thread {
             val insertId = database.messageDao().insert(newItem)
             newItem.id = insertId
-            //adapter.addItem(newItem)
         }
     }
 

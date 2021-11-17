@@ -7,7 +7,6 @@ import com.funnyautoreply.databinding.SettingsActivityBinding
 import android.view.MenuItem
 import com.funnyautoreply.R
 
-
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: SettingsActivityBinding
@@ -22,7 +21,7 @@ class SettingsActivity : AppCompatActivity() {
                 .replace(R.id.settings, SettingsFragment())
                 .commit()
         }
-        setSupportActionBar(binding.settingsToolbar);
+        setSupportActionBar(binding.settingsToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

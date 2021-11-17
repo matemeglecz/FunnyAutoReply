@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.funnyautoreply.R
 import com.funnyautoreply.data.Message
 import com.funnyautoreply.databinding.ItemMessageBinding
-import java.text.DateFormat
 
 class MessageAdapter(private val listener: MessageSelectedListener) :
     RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
@@ -44,10 +43,10 @@ class MessageAdapter(private val listener: MessageSelectedListener) :
         }
     }
 
-    fun addItem(item: Message) {
+    /*fun addItem(item: Message) {
         items.add(0, item)
         notifyItemInserted(0)
-    }
+    }*/
 
     fun update(shoppingItems: List<Message>) {
         items.clear()

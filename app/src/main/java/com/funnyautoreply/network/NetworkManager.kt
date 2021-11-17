@@ -28,11 +28,9 @@ object NetworkManager {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         val customCategory = sharedPref.getBoolean("any_category", false)
 
-        //ha nincs kategória
         if(!customCategory)
             return jokeApi.getJokeAny()
-        //ha vannak kategóriák
-        //összefűzni stringre és getJokeCustom hívás
+
         else{
             val categories: Set<String>? = sharedPref.getStringSet("categories", null)
             val categoriesString : String
