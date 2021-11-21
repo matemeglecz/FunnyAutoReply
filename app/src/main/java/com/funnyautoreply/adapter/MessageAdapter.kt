@@ -28,7 +28,7 @@ class MessageAdapter(private val listener: MessageSelectedListener) :
         fun onItemSelected(item: Message?)
     }
 
-    inner class MessageViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var binding = ItemMessageBinding.bind(itemView)
         var item: Message? = null
 

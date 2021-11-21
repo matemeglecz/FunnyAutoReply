@@ -1,7 +1,5 @@
 package com.funnyautoreply.model
 
-import android.media.MediaRouter
-
 data class JokeData(
     var error: Boolean,
     var category: String,

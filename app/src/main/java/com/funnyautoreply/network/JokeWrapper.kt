@@ -9,9 +9,9 @@ class JokeWrapper (private val jokeData: JokeData?) {
             return null
 
         if(jokeData.type=="single")
-            return jokeData.joke;
+            return jokeData.joke
         else if(jokeData.type=="twopart")
-            return jokeData.setup + "\n" + jokeData.delivery;
+            return jokeData.setup + "\n" + jokeData.delivery
 
         return null
     }

@@ -35,4 +35,8 @@
     <string name="phone_number_label">Phone number:</string>
     <string name="date_label">Date:</string>
     <string name="category_label">Category:</string>
+    <string name="read_phone_state_rationale">Needed for incoming call detection</string>
+    <string name="read_call_log_rationale">Needed for sms sending</string>
+    <string name="send_sms_rationale">Needed for sms sending</string>
+    <string name="read_contacts_rationale">Needed to check if the incoming phone number is in contacts</string>
 </resources>

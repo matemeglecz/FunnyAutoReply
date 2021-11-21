@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.preference.PreferenceManager
 import android.provider.ContactsContract.PhoneLookup
 import android.net.Uri
-import android.provider.ContactsContract
 import com.funnyautoreply.network.JokeWrapper
 
 object SmsManager {
@@ -53,16 +52,9 @@ object SmsManager {
         val cursorNumbers = context.contentResolver.query(lookupUri, phoneNumberProjection, starredSelection, starredArg, null)
         cursorNumbers.use { cursor ->
             if (cursor!!.moveToFirst()) {
-                val colIndex=cursor.getColumnIndex(ContactsContract.PhoneLookup.STARRED)
+                val colIndex=cursor.getColumnIndex(PhoneLookup.STARRED)
                 if (colIndex >= 0 && cursor.getInt(colIndex) == 1)
                     return true
-                /*while (!cursor.isAfterLast()) {
-                    if (cursor.getInt(cursor.getColumnIndex(ContactsContract.PhoneLookup.STARRED)) == 1) {
-                        Log.d("STARRED","OUTPUT: " + cursor.getInt(0) );
-                        return true;
-                    }
-                    cursor.moveToNext();
-                }*/
             }
         }
         return false

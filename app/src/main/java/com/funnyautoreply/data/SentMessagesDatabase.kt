@@ -16,7 +16,7 @@ abstract class SentMessagesDatabase : RoomDatabase(){
                 SentMessagesDatabase::class.java,
                 "sent-messages"
             ).fallbackToDestructiveMigration()
-                .build();
+                .build()
         }
     }
 
