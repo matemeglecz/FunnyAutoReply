@@ -1,9 +1,9 @@
 # FunnyAutoReply
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/58141904/144222056-2938fba7-5dbf-421c-af92-5d4cf40256f9.png" width="300" >
-  <img src="https://user-images.githubusercontent.com/58141904/144222675-eabc7238-f468-4262-a2a5-46b3719e247c.png" width="300" >
-  <img src="https://user-images.githubusercontent.com/58141904/144223138-3d8f0885-893e-4521-b8bd-fe41e9dc1f56.png" width="300" >
+  <img src="https://user-images.githubusercontent.com/58141904/144222056-2938fba7-5dbf-421c-af92-5d4cf40256f9.png" width="250" >
+  <img src="https://user-images.githubusercontent.com/58141904/144222675-eabc7238-f468-4262-a2a5-46b3719e247c.png" width="250" >
+  <img src="https://user-images.githubusercontent.com/58141904/144223138-3d8f0885-893e-4521-b8bd-fe41e9dc1f56.png" width="250" >
 </p>
 
 **Bemutatás**
