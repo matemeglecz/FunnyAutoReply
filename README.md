@@ -32,3 +32,5 @@ Ki lehet választani néhány kategória közül, hogy milyen típusú viccet sz
 
 Egy history nézetben egy listában megtekinthetők, hogy milyen számra küldtünk viccet és az 
 elemekre kattintva megnézhető, hogy mi volt a vicc. – sqlite, recycle view
+
+Dark Mode
