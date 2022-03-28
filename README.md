@@ -21,7 +21,7 @@ Be lehet állítani, hogy csak akkor küldjön sms-t, amennyiben a szám szerepe
 között és ha szerepel, akkor is csak akkor küldjön, ha kedvencként meg van jelölve. – shared 
 preferences
 
-A beállításokat el mentődnek és azok alapján működik az sms küldés. – shared preferences
+A beállítások elmentődnek és azok alapján működik az sms küldés. – shared preferences
 Az alkalmazás csak nem fogadott hívás (kinyomtuk vagy nem vettük fel) esetén küld sms-t.
 – broadcast reciever
 
