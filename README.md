@@ -15,22 +15,22 @@ telefont, akkor szórakoztathatom a hívó felet.
 
 **Főbb funkciók**
 
-Az alkalmazásban be/ki lehet kapcsolni az sms küldést. – shared preferences
+* Az alkalmazásban be/ki lehet kapcsolni az sms küldést. – shared preferences
 
-Be lehet állítani, hogy csak akkor küldjön sms-t, amennyiben a szám szerepel a contact-ok 
+* Be lehet állítani, hogy csak akkor küldjön sms-t, amennyiben a szám szerepel a contact-ok 
 között és ha szerepel, akkor is csak akkor küldjön, ha kedvencként meg van jelölve. – shared 
 preferences
 
-A beállítások elmentődnek és azok alapján működik az sms küldés. – shared preferences
+* A beállítások elmentődnek és azok alapján működik az sms küldés. – shared preferences
 Az alkalmazás csak nem fogadott hívás (kinyomtuk vagy nem vettük fel) esetén küld sms-t.
 – broadcast reciever
 
-Az alkalmazás küld egy viccet sms-ben hálózati kapcsolaton keresztül (egy random joke api 
+* Az alkalmazás küld egy viccet sms-ben hálózati kapcsolaton keresztül (egy random joke api 
 segítségével). – hálózati kapcsolat
 
-Ki lehet választani néhány kategória közül, hogy milyen típusú viccet szeretnénk küldeni.
+* Ki lehet választani néhány kategória közül, hogy milyen típusú viccet szeretnénk küldeni.
 
-Egy history nézetben egy listában megtekinthetők, hogy milyen számra küldtünk viccet és az 
+* Egy history nézetben egy listában megtekinthetők, hogy milyen számra küldtünk viccet és az 
 elemekre kattintva megnézhető, hogy mi volt a vicc. – sqlite, recycle view
 
-Dark Mode
+* Dark Mode
